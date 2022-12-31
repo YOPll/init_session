@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 
 # Ensure USER variabe is set
 [ -z "${USER}" ] && export USER=`whoami`
@@ -19,10 +18,16 @@ toolbox_path="$scriptdir"                            #=> Script Path
 init_docker=true                                     #=> Init Docker for Mac? See 
 init_docker_path="$scriptdir/init_docker.sh"         #=> Location of init_docker.sh file. See 
 install_apps=true                                    #=> Install desired apps if they are missing?
-start_apps=true                                      #=> Start apps?
-install_brew=true                                    #=> Install Homebrew?
-update_brew=true                                     #=> Update Homebrew (itself)?
-upgrade_brew_formulas=true                           #=> Upgrade Homebrew formulas (packages)?
+start_apps=true 									 #=> Start apps?
+if [[ -f "$HOME/goinfre/.brew/bin/brew" ]]
+then
+	echo "Brew is installed in goinfre"
+else
+	install_brew=true
+	update_brew=true
+	upgrade_brew_formulas=true
+fi
+
 clean_disk=true                                      #=> Clean disk (deletes ~/Library/Caches, does a brew cleanup, etc)?
 open_system_preferences=true                         #=> Open System Preferences at the end? You could need it to edit your keyboard/screen settings, etc.
 send_notification=true                               #=> Send a notification when job is done?
